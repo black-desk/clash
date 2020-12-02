@@ -11,6 +11,7 @@ const (
 	SrcPort
 	DstPort
 	Process
+	ProcessPrefix
 	MATCH
 )
 
@@ -36,6 +37,8 @@ func (rt RuleType) String() string {
 		return "DstPort"
 	case Process:
 		return "Process"
+	case ProcessPrefix:
+		return "ProcessPrefix"
 	case MATCH:
 		return "Match"
 	default:
