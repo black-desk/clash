@@ -19,20 +19,6 @@ func ParseProxy(mapping map[string]interface{}) (C.Proxy, error) {
 		err   error
 	)
 	switch proxyType {
-	case "ss":
-		ssOption := &ShadowSocksOption{}
-		err = decoder.Decode(mapping, ssOption)
-		if err != nil {
-			break
-		}
-		proxy, err = NewShadowSocks(*ssOption)
-	case "ssr":
-		ssrOption := &ShadowSocksROption{}
-		err = decoder.Decode(mapping, ssrOption)
-		if err != nil {
-			break
-		}
-		proxy, err = NewShadowSocksR(*ssrOption)
 	case "socks5":
 		socksOption := &Socks5Option{}
 		err = decoder.Decode(mapping, socksOption)
@@ -47,32 +33,6 @@ func ParseProxy(mapping map[string]interface{}) (C.Proxy, error) {
 			break
 		}
 		proxy = NewHttp(*httpOption)
-	case "vmess":
-		vmessOption := &VmessOption{
-			HTTPOpts: HTTPOptions{
-				Method: "GET",
-				Path:   []string{"/"},
-			},
-		}
-		err = decoder.Decode(mapping, vmessOption)
-		if err != nil {
-			break
-		}
-		proxy, err = NewVmess(*vmessOption)
-	case "snell":
-		snellOption := &SnellOption{}
-		err = decoder.Decode(mapping, snellOption)
-		if err != nil {
-			break
-		}
-		proxy, err = NewSnell(*snellOption)
-	case "trojan":
-		trojanOption := &TrojanOption{}
-		err = decoder.Decode(mapping, trojanOption)
-		if err != nil {
-			break
-		}
-		proxy, err = NewTrojan(*trojanOption)
 	default:
 		return nil, fmt.Errorf("unsupport proxy type: %s", proxyType)
 	}

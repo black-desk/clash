@@ -180,24 +180,8 @@ func updateGeneral(general *config.General, force bool) {
 	bindAddress := general.BindAddress
 	P.SetBindAddress(bindAddress)
 
-	if err := P.ReCreateHTTP(general.Port); err != nil {
-		log.Errorln("Start HTTP server error: %s", err.Error())
-	}
-
-	if err := P.ReCreateSocks(general.SocksPort); err != nil {
-		log.Errorln("Start SOCKS5 server error: %s", err.Error())
-	}
-
-	if err := P.ReCreateRedir(general.RedirPort); err != nil {
-		log.Errorln("Start Redir server error: %s", err.Error())
-	}
-
 	if err := P.ReCreateTProxy(general.TProxyPort); err != nil {
 		log.Errorln("Start TProxy server error: %s", err.Error())
-	}
-
-	if err := P.ReCreateMixed(general.MixedPort); err != nil {
-		log.Errorln("Start Mixed(http and socks5) server error: %s", err.Error())
 	}
 }
 
